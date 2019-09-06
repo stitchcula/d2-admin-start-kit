@@ -1,5 +1,6 @@
 // Vue
 import Vue from 'vue'
+import VCharts from 'v-charts'
 import i18n from './i18n'
 import App from './App'
 // 核心插件
@@ -15,6 +16,7 @@ import { frameInRoutes } from '@/router/routes'
 
 // 核心插件
 Vue.use(d2Admin)
+Vue.use(VCharts)
 
 new Vue({
   router,
