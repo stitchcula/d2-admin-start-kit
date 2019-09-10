@@ -50,6 +50,12 @@ module.exports = {
           propName: process.env.VUE_APP_SOURCE_VIEWER_PROP_NAME
         })
       )
+    // ts
+    config.module.rule('ts')
+      .test(/\.ts$/)
+      .use('ts-loader')
+      .loader('ts-loader')
+      .end()
     // svg
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
