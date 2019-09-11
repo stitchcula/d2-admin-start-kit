@@ -1,6 +1,6 @@
 <template>
   <d2-container>
-    <Terminal></Terminal>
+    <terminal></terminal>
   </d2-container>
 </template>
 
