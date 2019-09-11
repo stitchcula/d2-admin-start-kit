@@ -27,7 +27,8 @@ const frameIn = [
         name: 'page1',
         meta: {
           title: '拓扑',
-          auth: true
+          auth: true,
+          cache: true
         },
         component: _import('demo/page1')
       },
@@ -36,7 +37,8 @@ const frameIn = [
         name: 'page2',
         meta: {
           title: '终端',
-          auth: true
+          auth: true,
+          cache: true
         },
         component: _import('demo/page2')
       },
@@ -45,7 +47,8 @@ const frameIn = [
         name: 'page3',
         meta: {
           title: '日志',
-          auth: true
+          auth: true,
+          cache: true
         },
         component: _import('demo/page3')
       },

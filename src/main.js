@@ -1,12 +1,18 @@
 // Vue
 import Vue from 'vue'
-import VCharts from 'v-charts'
 import i18n from './i18n'
 import App from './App'
 // 核心插件
 import d2Admin from '@/plugin/d2admin'
 // store
 import store from '@/store/index'
+
+// [ 可选组件 ]D2-Crud
+import D2Crud from '@d2-projects/d2-crud'
+// [ 可选组件 ] 图表
+import VCharts from 'v-charts'
+// [ 可选组件 ] 区域划分
+import SplitPane from 'vue-splitpane'
 
 // 菜单和路由设置
 import router from './router'
@@ -16,7 +22,11 @@ import { frameInRoutes } from '@/router/routes'
 
 // 核心插件
 Vue.use(d2Admin)
+
+// 可选插件组件
+Vue.use(D2Crud)
 Vue.use(VCharts)
+Vue.component('SplitPane', SplitPane)
 
 new Vue({
   router,
