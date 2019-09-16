@@ -5,7 +5,7 @@
 <script>
 
 export default {
-  name: 'template',
+  name: 'terminal',
   data () {
     return {}
   },
