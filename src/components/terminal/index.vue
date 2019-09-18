@@ -1,12 +1,12 @@
 <template>
-    <d2-container v-bind="$attrs">
-      <iframe
+    <div style="margin-left: 20px; height: 100%; position: relative">
+        <iframe
         ref="terminal"
         @load="onLoad"
         class="d2-container-frame"
         src="/terminal"
         frameborder="0"></iframe>
-    </d2-container>
+    </div>
 </template>
 
 <script>

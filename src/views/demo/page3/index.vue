@@ -1,6 +1,6 @@
 <template>
   <d2-container>
-    <template slot="header">Page 3 header</template>
+    <template slot="header">施工中。。。</template>
     Hello World
   </d2-container>
 </template>
