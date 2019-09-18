@@ -7,7 +7,7 @@ import d2Admin from '@/plugin/d2admin'
 // store
 import store from '@/store/index'
 
-// [ 可选组件 ]D2-Crud
+// [ 可选组件 ] D2-Crud
 import D2Crud from '@d2-projects/d2-crud'
 // [ 可选组件 ] 图表
 import VCharts from 'v-charts'

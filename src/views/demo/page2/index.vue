@@ -27,7 +27,7 @@
       </div></template>
     </SplitPane>
 
-    <el-dialog title="批量选择" :visible.sync="rTransferVisible">
+    <el-dialog title="批量选择" :visible.sync="rTransferVisible" custom-class="dialog-width">
       <div style="text-align: center">
         <el-transfer
           class="transfer-wrap"
@@ -105,14 +105,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.el-dialog__wrapper >>> .dialog-width {
+  min-width: 50rem;
+}
+
 .transfer-wrap {
   text-align: left;
   display: inline-block;
 }
 
-.transfer-wrap > .el-transfer-panel {
-  width: 300px;
+.transfer-wrap >>> .el-transfer-panel {
+  width: 20rem;
 }
 
 </style>

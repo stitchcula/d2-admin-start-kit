@@ -3,11 +3,13 @@
     <div v-if="$slots.header" class="d2-container-card__header" ref="header">
       <slot name="header"/>
     </div>
-    <div class="d2-container-card__body" ref="body">
-      <div class="d2-container-card__body-card">
-        <slot/>
+    <el-scrollbar>
+      <div class="d2-container-card__body" ref="body">
+        <div class="d2-container-card__body-card">
+          <slot/>
+        </div>
       </div>
-    </div>
+    </el-scrollbar>
     <div v-if="$slots.footer" class="d2-container-card__footer" ref="footer">
       <slot name="footer"/>
     </div>
@@ -31,3 +33,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.d2-container-card > .el-scrollbar {
+  height: 100%;
+}
+
+.d2-container-card > .el-scrollbar .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+</style>
