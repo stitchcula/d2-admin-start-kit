@@ -9,7 +9,7 @@
         <el-step title="执行" icon="el-icon-brush"></el-step>
       </el-steps>
     </template>
-    <!--el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop-->
+    <el-backtop target=".d2-container-card .el-scrollbar__wrap" :bottom="110"></el-backtop>
     <div style="margin: 0 auto; min-height: 20rem">
       <div v-show="step === 0" class="step-body">
         <el-transfer
