@@ -9,3 +9,7 @@ coverage/
 # 忽略文件
 **/*-min.js
 **/*.min.js
+
+# 生成文件夹
+api/longrunning/
+api/uweb/

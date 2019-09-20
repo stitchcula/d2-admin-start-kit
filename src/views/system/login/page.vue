@@ -55,7 +55,7 @@
                     v-model="formLogin.code"
                     placeholder="验证码">
                     <template slot="append">
-                      <img class="login-code" src="./image/login-code.png">
+                      <img class="login-code" :src="codeSrc" alt="">
                     </template>
                   </el-input>
                 </el-form-item>
@@ -105,11 +105,14 @@
 <script>
 import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
+let Uwebv1uwebproto = require('@api/uweb')
 export default {
   data () {
     return {
       timeInterval: null,
       time: dayjs().format('HH:mm:ss'),
+      codeSrc: './image/login-code.png',
+      codeId: '',
       // 表单
       formLogin: {
         username: 'admin',
@@ -146,6 +149,25 @@ export default {
     this.timeInterval = setInterval(() => {
       this.refreshTime()
     }, 1000)
+
+    // 获取验证码
+    const clt = new Uwebv1uwebproto.UsersApi()
+    clt.getCaptcha((err, data) => {
+      if (data && !data.id) {
+        err = data
+      }
+      if (err) {
+        this.$notify.error({
+          title: '获取验证码失败',
+          message: err,
+          position: 'bottom-right'
+        })
+        return
+      }
+
+      this.codeId = data.id
+      this.codeSrc = data.code
+    })
   },
   beforeDestroy () {
     clearInterval(this.timeInterval)
