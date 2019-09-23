@@ -1,7 +1,7 @@
 import { Message, MessageBox } from 'element-ui'
 import util from '@/libs/util.js'
 import router from '@/router'
-import Uwebv1uwebproto from '@/api/uweb'
+import Uwebv1uwebproto from '@api/uweb/src/index.js'
 
 export default {
   namespaced: true,

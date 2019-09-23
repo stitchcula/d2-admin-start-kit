@@ -105,7 +105,8 @@
 <script>
 import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
-let Uwebv1uwebproto = require('@api/uweb')
+import Uwebv1uwebproto from '@/api/uweb'
+console.log(Uwebv1uwebproto)
 export default {
   data () {
     return {
