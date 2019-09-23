@@ -55,7 +55,7 @@
                     v-model="formLogin.code"
                     placeholder="验证码">
                     <template slot="append">
-                      <img class="login-code" :src="codeSrc" alt="">
+                      <img class="login-code" :src="codeSrc" alt="" @click="refreshCaptcha">
                     </template>
                   </el-input>
                 </el-form-item>
@@ -105,8 +105,6 @@
 <script>
 import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
-import Uwebv1uwebproto from '@/api/uweb'
-console.log(Uwebv1uwebproto)
 export default {
   data () {
     return {
@@ -118,7 +116,7 @@ export default {
       formLogin: {
         username: 'admin',
         password: 'admin',
-        code: 'v9am'
+        code: ''
       },
       // 表单校验
       rules: {
@@ -152,33 +150,28 @@ export default {
     }, 1000)
 
     // 获取验证码
-    const clt = new Uwebv1uwebproto.UsersApi()
-    clt.getCaptcha((err, data) => {
-      if (data && !data.id) {
-        err = data
-      }
-      if (err) {
-        this.$notify.error({
-          title: '获取验证码失败',
-          message: err,
-          position: 'bottom-right'
-        })
-        return
-      }
-
-      this.codeId = data.id
-      this.codeSrc = data.code
-    })
+    this.refreshCaptcha()
   },
   beforeDestroy () {
     clearInterval(this.timeInterval)
   },
   methods: {
     ...mapActions('d2admin/account', [
-      'login'
+      'login',
+      'GetCaptcha'
     ]),
     refreshTime () {
       this.time = dayjs().format('HH:mm:ss')
+    },
+    refreshCaptcha () {
+      this.GetCaptcha({})
+        .then(data => {
+          if (data && !data.id) {
+            throw data
+          }
+          this.codeId = data.id
+          this.codeSrc = data.code
+        })
     },
     /**
      * @description 提交表单
@@ -192,7 +185,9 @@ export default {
           // 具体需要传递的数据请自行修改代码
           this.login({
             username: this.formLogin.username,
-            password: this.formLogin.password
+            password: this.formLogin.password,
+            code: this.formLogin.code,
+            codeId: this.codeId
           })
             .then(() => {
               // 重定向对象不存在则返回顶层路径

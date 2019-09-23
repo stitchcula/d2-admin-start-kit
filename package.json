@@ -30,6 +30,7 @@
     "qs": "^6.7.0",
     "screenfull": "^4.2.0",
     "superagent": "^5.1.0",
+    "swagger-vue": "^1.0.3",
     "ua-parser-js": "^0.7.19",
     "v-charts": "^1.19.0",
     "vue": "^2.6.10",

@@ -91,7 +91,7 @@ export default {
       selectedSid: selectedSid,
       selectedData: JSON.parse(JSON.stringify(allData)),
       search: '',
-      step: 2
+      step: 0
     }
   },
   methods: {

@@ -35,7 +35,7 @@ function errorLog (error) {
 
 // 创建一个 axios 实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_API,
+  baseURL: '', // process.env.VUE_APP_API,
   timeout: 5000 // 请求超时时间
 })
 
@@ -63,7 +63,7 @@ service.interceptors.response.use(
     // 这个状态码是和后端约定的
     const { code } = dataAxios
     // 根据 code 进行判断
-    if (code === undefined) {
+    if (code === undefined || typeof code !== 'number') {
       // 如果没有 code 代表这不是项目后端开发的接口 比如可能是 D2Admin 请求最新版本
       return dataAxios
     } else {
@@ -71,14 +71,14 @@ service.interceptors.response.use(
       switch (code) {
         case 0:
           // [ 示例 ] code === 0 代表没有错误
-          return dataAxios.data
+          return dataAxios
         case 'xxx':
           // [ 示例 ] 其它和后台约定的 code
-          errorCreate(`[ code: xxx ] ${dataAxios.msg}: ${response.config.url}`)
+          errorCreate(`[ code: xxx ] ${dataAxios.error}: ${response.config.url}`)
           break
         default:
           // 不是正确的 code
-          errorCreate(`${dataAxios.msg}: ${response.config.url}`)
+          errorCreate(`${dataAxios.error}: ${response.config.url}`)
           break
       }
     }
