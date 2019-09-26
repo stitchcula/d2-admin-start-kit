@@ -80,12 +80,12 @@ module.exports = {
     config.resolve.alias
       .set('@api', resolve('src/api'))
     // 判断环境加入模拟数据
-    const entry = config.entry('app')
-    if (process.env.VUE_APP_BUILD_MODE !== 'nomock') {
-      entry
-        .add('@/mock')
-        .end()
-    }
+    // const entry = config.entry('app')
+    // if (process.env.VUE_APP_BUILD_MODE !== 'nomock') {
+    //   entry
+    //     .add('@/mock')
+    //     .end()
+    // }
   },
   // i18n
   pluginOptions: {

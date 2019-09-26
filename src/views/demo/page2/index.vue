@@ -6,7 +6,12 @@
       </template>
 
       <template slot="paneL"><div style="padding-right: 20px; height: 100%" v-resize="resizeTableHeight">
-        <el-table :data="selectedData.filter(it => !search || it.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%" :height="rTableHeight" size="small">
+        <el-table
+        v-loading="loading"
+        :data="selectedData.filter(it => !search || it.name.toLowerCase().includes(search.toLowerCase()))"
+        style="width: 100%"
+        :height="rTableHeight"
+        size="small">
           <el-table-column type="index" :index="indexMethod"></el-table-column>
 
           <el-table-column prop="name" :show-overflow-tooltip="true">
@@ -29,7 +34,7 @@
 
     <el-dialog title="批量选择" :visible.sync="rTransferVisible" custom-class="dialog-width">
       <div style="text-align: center">
-        <el-transfer
+        <transfer
           class="transfer-wrap"
           filterable
           :filter-method="filterMethod"
@@ -38,7 +43,7 @@
           :props="{ key: 'sid', label: 'name' }"
           v-model="selectedSid"
           :data="allData">
-        </el-transfer>
+        </transfer>
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="rTransferVisible = false">取 消</el-button>
@@ -52,29 +57,41 @@
 <script>
 import terminal from '@/components/terminal'
 import resize from 'vue-resize-directive'
-
+import transfer from '@/components/transfer'
+import * as uweb from '../../../api/uweb'
 export default {
   name: 'page2',
   data () {
-    const allData = []
-    const selectedSid = []
-    for (let i = 0; i < 10; i++) {
-      allData[i] = {
-        sid: i,
-        name: `测试1112 (192.168.1.${i})`
-      }
-      selectedSid.push(i)
-    }
     return {
-      allData: allData,
-      selectedSid: selectedSid,
-      selectedData: JSON.parse(JSON.stringify(allData)),
+      loading: false,
+      allData: [],
+      selectedSid: [],
+      selectedData: [],
       search: '',
       rTableHeight: '0',
       rTransferVisible: false
     }
   },
+  mounted () {
+    this.fetchNodes()
+  },
   methods: {
+    fetchNodes () {
+      uweb.ListNodes()
+        .then(data => {
+          let selectedSid = []
+          let allData = []
+          for (let node of data.nodes) {
+            allData[parseInt(node.sid)] = node
+            selectedSid.push(node.sid)
+          }
+
+          this.loading = false
+          this.allData = allData
+          this.selectedSid = selectedSid
+          this.selectedData = JSON.parse(JSON.stringify(allData))
+        })
+    },
     indexMethod (i) {
       return this.allData[i].sid
     },
@@ -97,7 +114,8 @@ export default {
     }
   },
   components: {
-    terminal
+    terminal,
+    transfer
   },
   directives: {
     resize
@@ -117,6 +135,10 @@ export default {
 
 .transfer-wrap >>> .el-transfer-panel {
   width: 20rem;
+}
+
+.transfer-wrap >>> .el-transfer-panel__item.el-checkbox .el-checkbox__label {
+  min-width: 14rem;
 }
 
 </style>

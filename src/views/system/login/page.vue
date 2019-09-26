@@ -166,9 +166,6 @@ export default {
     refreshCaptcha () {
       this.GetCaptcha({})
         .then(data => {
-          if (data && !data.id) {
-            throw data
-          }
           this.codeId = data.id
           this.codeSrc = data.code
         })
